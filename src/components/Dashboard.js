@@ -15,7 +15,7 @@ export default function Dashboard() {
         </div>
 
         <div className="max-w-md w-full space-y-8">
-          <Link to="profile">
+          <Link to="/dashboard/profile">
             <button
               type="submit"
               className="group relative w-full flex justify-center mt-4 py-2 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-yellow-300 hover:bg-yellow-500 focus:outline-none"
