@@ -6,13 +6,16 @@ import { Link } from "react-router-dom";
 
 export default function Profile() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [edit, setEdit] = React.useState("");
 
-  function closeModal() {
+  function closeModal(e) {
     setIsOpen(false);
+    setEdit((prev) => (prev = ""));
   }
 
-  function openModal() {
+  function openModal(e) {
     setIsOpen(true);
+    setEdit((prev) => (prev = e.target.id));
   }
 
   return (
@@ -42,6 +45,7 @@ export default function Profile() {
                 stroke="currentColor"
                 cursor="pointer"
                 strokeWidth={2}
+                id={"name"}
                 onClick={openModal}
               >
                 <path
@@ -66,6 +70,7 @@ export default function Profile() {
                 stroke="currentColor"
                 cursor="pointer"
                 strokeWidth={2}
+                id={"email"}
                 onClick={openModal}
               >
                 <path
@@ -90,6 +95,7 @@ export default function Profile() {
                 stroke="currentColor"
                 cursor="pointer"
                 strokeWidth={2}
+                id={"password"}
                 onClick={openModal}
               >
                 <path
@@ -102,16 +108,17 @@ export default function Profile() {
           </div>
         </dl>
       </div>
-      <Link to="/">
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center mt-4 py-2 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-yellow-300 hover:bg-yellow-500 focus:outline-none"
-            >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-              Back to dashboard
-            </button>
-          </Link>
+      <Link to="/dashboard">
+        <button
+          type="submit"
+          className="group relative w-full flex justify-center mt-4 py-2 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-yellow-300 hover:bg-yellow-500 focus:outline-none"
+        >
+          <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+          Back to dashboard
+        </button>
+      </Link>
       <EditProfile
+        edit={edit}
         isOpen={isOpen}
         openModal={openModal}
         closeModal={closeModal}
