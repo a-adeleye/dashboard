@@ -5,12 +5,16 @@ import ProfileName from "./ProfileName";
 export default function HomePage() {
   return (
     <>
-      <div className=" flex items-center justify-center py-12 px-4 px-6 bg-white lg:px-8 w-4/5 min-w-max max-w-sm max-h-fit rounded-xl">
-        <div className="max-w-md w-full space-y-8">
-          <Avatar />
-          <h2 className="mt-6 text-center text-l font-bold text-gray-900">
-            Welcome <ProfileName />
+      <div className=" flex flex-col gap-7 items-center justify-center py-12 px-4 px-6 bg-white lg:px-8 w-4/5 min-w-max max-w-sm max-h-fit rounded-xl">
+        <Avatar />
+        <div className="max-w-md text-center space-y-1">
+          <h2 className="w-full max-w-md space-y-8 text-center text-l font-bold text-gray-900">
+            Welcome
           </h2>
+          <ProfileName />
+        </div>
+
+        <div className="max-w-md w-full space-y-8">
           <Link to="profile">
             <button
               type="submit"
