@@ -28,7 +28,7 @@ export default function ProfileName() {
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 min-w-max shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="bg-gray-100">
             <Menu.Item>
-              <button className="block px-4 w-full py-2 text-sm bg-gray-100 font-bold text-gray-900">
+              <button className="block px-4 w-full py-2 -mt-2 text-sm bg-gray-100 font-bold text-gray-900">
                 Log out
               </button>
             </Menu.Item>
