@@ -21,7 +21,7 @@ export default function Profile() {
         <ProfileName />
       </div>
       <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">
+        <h3 className="text-md leading-2 font-medium text-gray-900">
           Profile details
         </h3>
       </div>
