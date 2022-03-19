@@ -1,17 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./components/Login";
-import HomePage from "./components/Homepage";
+import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 
 export default function RouteSwitch() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="dashboard">
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="login" element={<LoginPage />} />
-          <Route path="dashboard" element={<HomePage />} />
-          <Route path="edit-profile" element={<EditProfile />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/edit" element={<EditProfile />} />
           <Route
             path="*"
             element={
@@ -23,7 +25,7 @@ export default function RouteSwitch() {
           <Route
             index
             element={
-              <HomePage />
+              <Dashboard />
             }
           />
         </Route>
