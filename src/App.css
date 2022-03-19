@@ -2,7 +2,8 @@
   text-align: center;
 }
 
-.login-page {
+.login-page,
+.home-page {
   display: flex;
   align-items: center;
   justify-content: center;
