@@ -2,9 +2,10 @@ import Avatar from "./Avatar";
 import ProfileName from "./ProfileName";
 import EditProfile from "./EditProfile";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -101,6 +102,15 @@ export default function Profile() {
           </div>
         </dl>
       </div>
+      <Link to="/">
+            <button
+              type="submit"
+              className="group relative w-full flex justify-center mt-4 py-2 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-yellow-300 hover:bg-yellow-500 focus:outline-none"
+            >
+              <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+              Back to dashboard
+            </button>
+          </Link>
       <EditProfile
         isOpen={isOpen}
         openModal={openModal}
