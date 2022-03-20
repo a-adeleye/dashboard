@@ -1,11 +1,23 @@
 import Avatar from "./Avatar";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link} from "react-router-dom";
 import ProfileName from "./ProfileName";
-import Login from "./Login";
 import React from "react";
 
 export default function Dashboard() {
-  const [user,token] = useOutletContext();
+  function getSessionData() {
+    let data = sessionStorage.getItem("sessionData");
+    console.log(JSON.parse(data));
+    return JSON.parse(data);
+  }
+
+  const [userData, setUserData] = React.useState("");
+
+  React.useEffect(() => {
+    const data = getSessionData();
+      if (data) {
+      setUserData(data.profileData);
+    }
+  }, []);
 
   return (
     <>
@@ -15,7 +27,7 @@ export default function Dashboard() {
           <h2 className="text-l w-full max-w-md space-y-8 text-center font-bold text-gray-900">
             Welcome
           </h2>
-          <ProfileName name={user.name}/>
+          <ProfileName name={userData.name} />
         </div>
 
         <div className="w-full max-w-md space-y-8">
