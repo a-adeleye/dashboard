@@ -1,4 +1,6 @@
-export default function LoginForm(handleChange, handleSubmit) {
+export default function LoginForm({handleChange, handleSubmit}) {
+
+
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <input type="hidden" name="remember" defaultValue="true" />
