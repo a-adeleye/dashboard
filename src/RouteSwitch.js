@@ -4,30 +4,21 @@ import LoginPage from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
+import NotFound from "./404";
 
 export default function RouteSwitch() {
   return (
-    <BrowserRouter basename="dashboard">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+          <Route index element={<Dashboard />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/edit" element={<EditProfile />} />
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
-          <Route
-            index
-            element={
-              <Dashboard />
-            }
-          />
+          <Route path="dashboard" element={<Dashboard />}>
+           
+          </Route>
+          <Route path="dashboard/profile" element={<Profile />} />
+
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
