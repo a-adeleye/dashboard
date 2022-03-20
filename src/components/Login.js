@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import FlickLogo from "./FlickLogo";
 import LoginForm from "./LoginForm";
 import { loginUser } from "./Functions";
+import Loading from "./Loading";
+import { trackPromise } from "react-promise-tracker";
 
-export default function LoginPage({setToken, setUser}) {
+export default function LoginPage({ setToken, setUser }) {
   const [formInput, setFormInput] = React.useState("");
 
   function handleChange(e) {
@@ -17,21 +19,26 @@ export default function LoginPage({setToken, setUser}) {
     const formdata = new FormData();
     formdata.append("email", `${formInput.email}`);
     formdata.append("password", `${formInput.password}`);
-    loginUser(formdata).then(res => {
-      setToken(res.data.access_token);
-      setUser(res.data.me);
-    }
-      )
+    trackPromise(
+      loginUser(formdata).then((res) => {
+        setToken(res.data.access_token);
+        setUser(res.data.me);
+      })
+    );
   }
 
   return (
     <>
-      <div className=" flex max-h-fit w-2/5 min-w-fit items-center justify-center rounded-xl bg-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className=" flex max-h-fit w-4/5 min-w-max max-w-lg items-center justify-center rounded-xl bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <FlickLogo />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Log in
           </h2>
+          <div className="flex justify-center items-center">
+            <Loading />
+          </div>
+
           <LoginForm
             handleChange={handleChange}
             handleSubmit={handleSubmit}

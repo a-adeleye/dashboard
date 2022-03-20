@@ -3,16 +3,12 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function ProfileName() {
+export default function ProfileName({name}) {
   return (
     <Menu as="div" className="relative inline-block text-left z-50">
       <div>
         <Menu.Button className="inline-flex justify-center w-full rounded-md border shadow-sm pl-4 pr-1 py-1.5 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none">
-          adescuma
+          {name}
           <ChevronDownIcon className="ml-5 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
