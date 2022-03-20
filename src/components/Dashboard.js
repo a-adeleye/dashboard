@@ -5,7 +5,7 @@ import ProfileName from "./ProfileName";
 export default function Dashboard() {
   return (
     <>
-      <div className=" flex flex-col gap-7 items-center justify-center py-12 px-4 px-6 bg-white lg:px-8 w-4/5 min-w-max max-w-sm max-h-fit rounded-xl">
+      <div className=" flex flex-col gap-7 items-center justify-center py-12 px-4 bg-white lg:px-8 w-4/5 min-w-max max-w-sm max-h-fit rounded-xl">
         <Avatar />
         <div className="max-w-md text-center space-y-1">
           <h2 className="w-full max-w-md space-y-8 text-center text-l font-bold text-gray-900">

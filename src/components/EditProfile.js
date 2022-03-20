@@ -40,13 +40,16 @@ export default function EditProfile(props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-5/12 h-48 border-2 border-black max-w-md min-w-max p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="my-8 inline-block h-48 w-5/12 min-w-max max-w-md transform overflow-hidden rounded-2xl border-2 border-black bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
+                  className="text-md font-bold leading-6 text-gray-900"
                 >
-                  Edit {edit}
+                  Update your {edit}
                 </Dialog.Title>
+                <p className="text-xs text-gray-500 mt-2 mb-3">
+                  Change the {edit} you want associated with your account
+                </p>
                 <div>
                   <label htmlFor="email-address" className="sr-only">
                     Email address
@@ -57,7 +60,7 @@ export default function EditProfile(props) {
                     type="email"
                     autoComplete="email"
                     required
-                    className="appearance-none mb-4 rounded-md relative block w-full px-3 py-2 mt-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm"
+                    className="relative mb-4 mt-2 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
                     placeholder={"Enter new " + edit}
                   />
                 </div>
@@ -65,14 +68,14 @@ export default function EditProfile(props) {
                 <div className="mt-4 flex justify-between">
                   <button
                     type="button"
-                    className="inline-flex justify-center px-6 py-2 text-sm font-medium text-black bg-red-300 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-6 py-2 text-sm font-medium text-black hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={closeModal}
                   >
                     Cancel
                   </button>
                   <button
                     type="button"
-                    className="inline-flex justify-center px-8 py-2 text-sm font-medium bg-green-600 text-white border border-transparent rounded-md hover:bg-green-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-8 py-2 text-sm font-medium text-white hover:bg-green-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={closeModal}
                   >
                     Save
