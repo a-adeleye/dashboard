@@ -1,91 +1,42 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import FlickLogo from "./FlickLogo";
+import LoginForm from "./LoginForm";
+import { loginUser } from "./Functions";
 
+export default function LoginPage({setToken, setUser}) {
+  const [formInput, setFormInput] = React.useState("");
 
-export default function LoginPage({handleClick}) {
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormInput((prev) => (prev = { ...prev, [name]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("email", `${formInput.email}`);
+    formdata.append("password", `${formInput.password}`);
+    loginUser(formdata).then(res => {
+      setToken(res.data.access_token);
+      setUser(res.data.me);
+    }
+      )
+  }
+
   return (
     <>
-      <div className=" flex items-center justify-center py-12 px-4 sm:px-6 bg-white lg:px-8 w-2/5 min-w-fit max-h-fit rounded-xl">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <img
-              className="mx-auto h-12 w-auto"
-              src="https://flick.ae/wp-content/themes/flick/img/FlickLogo.png"
-              alt="Workflow"
-            />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Log in
-            </h2>
-          </div>
-          <form className="mt-8 space-y-6" action="https://httpbin.org/post" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
-              <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="appearance-none mb-4 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <Link to="/dashboard"><button
-                onClick={handleClick}
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-yellow-300 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-              >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-                Sign in
-              </button></Link>
-            </div>
-          </form>
+      <div className=" flex max-h-fit w-2/5 min-w-fit items-center justify-center rounded-xl bg-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          <FlickLogo />
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Log in
+          </h2>
+          <LoginForm
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            formdata={formInput}
+          ></LoginForm>
         </div>
       </div>
     </>
