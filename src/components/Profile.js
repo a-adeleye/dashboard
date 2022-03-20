@@ -3,19 +3,22 @@ import ProfileName from "./ProfileName";
 import EditProfile from "./EditProfile";
 import React from "react";
 import { Link } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Profile() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [edit, setEdit] = React.useState("");
+  const [edit, setEdit] = React.useState();
 
   function closeModal(e) {
-    setIsOpen(false);
-    setEdit((prev) => (prev = ""));
+    setIsOpen(false); 
+    toast.success("Updated")
   }
 
+
   function openModal(e) {
+    const id = e.target.closest('svg').id;
+    setEdit((prev) => (prev = id));
     setIsOpen(true);
-    setEdit((prev) => (prev = e.target.id));
   }
 
   return (
@@ -45,7 +48,7 @@ export default function Profile() {
                 stroke="currentColor"
                 cursor="pointer"
                 strokeWidth={2}
-                id={"name"}
+                id="name"
                 onClick={openModal}
               >
                 <path
@@ -123,6 +126,7 @@ export default function Profile() {
         openModal={openModal}
         closeModal={closeModal}
       />
+      <div><Toaster/></div>
     </div>
   );
 }
