@@ -1,15 +1,13 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { trackPromise } from "react-promise-tracker";
+import { Toaster } from "react-hot-toast";
 import Avatar from "./Avatar";
 import ProfileName from "./ProfileName";
 import EditProfile from "./EditProfile";
-import React from "react";
-import { Link } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-import { trackPromise } from "react-promise-tracker";
-import Loading from "./Loading";
-import logout from "../auth/Logout";
-import fetchUserData from "../auth/UserData";
-import refreshToken from "../auth/Refresh";
 import EditButton from "./EditButton";
+import Loading from "./Loading";
+import auth from "../auth/auth";
 
 export default function Profile() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -19,31 +17,25 @@ export default function Profile() {
     setIsOpen(false);
   }
 
-   function openModal() {
-    refreshToken();
+  function openModal() {
+    auth.refreshToken();
     setIsOpen(true);
   }
 
   React.useEffect(() => {
-    const data = JSON.parse(sessionStorage.getItem("sessionData"));
-    if (data) {
-      const accessToken = data.accessToken;
-      trackPromise(
-        fetchUserData(accessToken).then((res) => {
-          setUserData(res.data);
-        })
-      );
-    }
+    trackPromise(
+      auth.fetchUserData().then((res) => {
+        setUserData(res);
+        console.log(res)
+      })
+    );
   }, []);
 
   return (
     <div className=" min-w-3xl max-h-min w-11/12 max-w-4xl overflow-hidden rounded-xl bg-white p-3 shadow sm:rounded-lg sm:p-7">
       <Avatar />
       <div className="m-auto mt-6 text-center">
-        <ProfileName
-          name={userData ? userData.name : ""}
-          logout={() => logout("accessToken, refreshToken")}
-        />
+        <ProfileName name={userData ? userData.name : ""} />
       </div>
       <div className="py-5">
         <h3 className="text-md leading-2 font-medium text-gray-900">
@@ -58,7 +50,7 @@ export default function Profile() {
               {!userData ? <Loading /> : userData.name}
             </dd>
             <dd className="mt-1 flex justify-end text-sm text-gray-500">
-            <EditButton id="name" openModal={openModal}/>
+              <EditButton id="name" openModal={openModal} />
             </dd>
           </div>
           <div className="grid grid-cols-4 gap-4 bg-white px-2 py-3 sm:px-4">
@@ -66,22 +58,20 @@ export default function Profile() {
             <dd className="col-span-2 mt-1 text-sm text-gray-900">
               {!userData ? <Loading /> : userData.email}
             </dd>
-            <dd className="mt-1 flex justify-end text-sm text-gray-500">
-            </dd>
+            <dd className="mt-1 flex justify-end text-sm text-gray-500"></dd>
           </div>
           <div className="grid grid-cols-4 gap-4 bg-gray-50 px-2 py-3 sm:px-4">
             <dt className="text-sm font-medium text-gray-500">Password</dt>
             <dd className="col-span-2 mt-1 text-sm text-gray-900">
               {!userData ? <Loading /> : "**********"}
             </dd>
-            <dd className="mt-1 flex justify-end text-sm text-gray-500 sm:mt-0">
-            </dd>
+            <dd className="mt-1 flex justify-end text-sm text-gray-500 sm:mt-0"></dd>
           </div>
         </dl>
       </div>
       <Link to="/dashboard">
         <button
-          onClick={refreshToken}
+          onClick={auth.refreshToken}
           className="group relative m-auto mt-4 flex w-full max-w-lg justify-center rounded-md border border-transparent bg-yellow-300 py-2 px-4 text-sm font-bold text-black hover:bg-yellow-500 focus:outline-none"
         >
           <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>

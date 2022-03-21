@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import LoginPage from "./components/Login";
+import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import NotFound from "./404";
+import NotFound from "./components/404";
 
 export default function RouteSwitch() {
   return (
@@ -11,7 +11,7 @@ export default function RouteSwitch() {
       <Routes>
         <Route path="/" element={<App />}>
           
-          <Route path="login" element={<LoginPage />} />
+          <Route path="login" element={<Login />} />
           <Route path="dashboard" element={<Dashboard />}>
            
           </Route>

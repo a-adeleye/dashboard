@@ -1,14 +1,12 @@
-import Avatar from "./Avatar";
-import { Link} from "react-router-dom";
-import ProfileName from "./ProfileName";
 import React from "react";
-import refreshToken from "../auth/Refresh";
+import { Link} from "react-router-dom";
+import Avatar from "./Avatar";
+import ProfileName from "./ProfileName";
 
 export default function Dashboard() {
 
   function getSessionData() {
     let data = sessionStorage.getItem("sessionData");
-    console.log(JSON.parse(data));
     return JSON.parse(data);
   }
 
@@ -17,7 +15,7 @@ export default function Dashboard() {
   React.useEffect(() => {
     const data = getSessionData();
       if (data) {
-      setUserData(data.profileData);
+      setUserData(data.me);
     }
   }, []);
 

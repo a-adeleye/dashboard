@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate, Outlet } from "react-router-dom";
-import { isLoggedIn } from "./auth/Login";
+import auth from "./auth/auth";
 
 function App() {
 
@@ -8,7 +8,7 @@ function App() {
 
   React.useEffect(() => {
    
-    if (!isLoggedIn()) {
+    if (!auth.isLoggedIn()) {
       navigate("/login");
     }
   },[]);

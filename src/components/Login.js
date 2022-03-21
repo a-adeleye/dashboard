@@ -1,10 +1,10 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
+import { trackPromise } from "react-promise-tracker";
 import FlickLogo from "./FlickLogo";
 import LoginForm from "./LoginForm";
-import login, { isLoggedIn } from "../auth/Login";
+import auth from "../auth/auth";
 import Loading from "./Loading";
-import { trackPromise } from "react-promise-tracker";
 
 export default function LoginPage() {
   const [formInput, setFormInput] = React.useState("");
@@ -22,24 +22,17 @@ export default function LoginPage() {
     formdata.append("email", `${formInput.email}`);
     formdata.append("password", `${formInput.password}`);
     trackPromise(
-      login(formdata).then((res) => {
-        sessionStorage.setItem("sessionData", JSON.stringify({
-          accessToken: res.data.access_token,
-          refreshToken: res.data.refresh_token,
-          profileData: res.data.me,
-        }));
+      auth.login(formdata).then((res) => {
         navigate('/dashboard')
       })
     );
   }
 
   React.useEffect(() => {
-    if (isLoggedIn()) {
+    if (auth.isLoggedIn()) {
       navigate("/dashboard");
     }
   });
-
-  console.log(isLoggedIn())
 
   return (
     <>
