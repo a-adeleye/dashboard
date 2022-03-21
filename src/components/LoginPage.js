@@ -1,13 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import FlickLogo from "./FlickLogo";
 import LoginForm from "./LoginForm";
-import { loginUser } from "./Functions";
+import login, { isLoggedIn } from "../auth/Login";
 import Loading from "./Loading";
 import { trackPromise } from "react-promise-tracker";
 
-export default function LoginPage({ setToken, setUser }) {
+export default function LoginPage() {
   const [formInput, setFormInput] = React.useState("");
+
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -20,12 +22,24 @@ export default function LoginPage({ setToken, setUser }) {
     formdata.append("email", `${formInput.email}`);
     formdata.append("password", `${formInput.password}`);
     trackPromise(
-      loginUser(formdata).then((res) => {
-        setToken(res.data.access_token);
-        setUser(res.data.me);
+      login(formdata).then((res) => {
+        sessionStorage.setItem("sessionData", JSON.stringify({
+          accessToken: res.data.access_token,
+          refreshToken: res.data.refresh_token,
+          profileData: res.data.me,
+        }));
+        navigate('/dashboard')
       })
     );
   }
+
+  React.useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/dashboard");
+    }
+  });
+
+  console.log(isLoggedIn())
 
   return (
     <>
@@ -35,7 +49,7 @@ export default function LoginPage({ setToken, setUser }) {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Log in
           </h2>
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <Loading />
           </div>
 

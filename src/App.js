@@ -1,27 +1,24 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
-import Login from './components/Login'
-
+import {useNavigate, Outlet } from "react-router-dom";
+import { isLoggedIn } from "./auth/Login";
+import userData from "./auth/UserData";
 
 function App() {
 
-  const [token, setToken] = React.useState("");
-  const [user, setUser] = React.useState("");
+  const navigate = useNavigate();
 
-  if (!token) {
-    return (
-      <div className=" w-screen h-screen bg-theme-yellow flex justify-center items-center">
-        <Login setToken={setToken} setUser={setUser}/>
-      </div>
-    );
-  }
+  React.useEffect(() => {
+   
+    if (!isLoggedIn()) {
+      navigate("/login");
+    }
+  },[]);
 
-  console.log(user);
-  console.log(token);
+  console.log("App rendered")
 
   return (
     <div className=" w-screen h-screen bg-theme-yellow flex justify-center items-center">
-      <Outlet context={[user,token]}/>
+      <Outlet />
     </div>
   );
 }
