@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export default (function auth() {
   async function login(formdata) {
     const fetchHeaders = new Headers();
@@ -16,6 +18,10 @@ export default (function auth() {
         "https://phplaravel-718120-2386003.cloudwaysapps.com/api/v1/auth/admin-login",
         requestOptions
       );
+
+      if(!response.ok){
+        toast.error("Invalid login details")
+      }
 
       if (response.ok) {
         const data = await response.json();
@@ -143,6 +149,8 @@ export default (function auth() {
       console.log("error", error);
     }
   }
+
+//Check if user is loggedin
 
   function isLoggedIn() {
     let sessionData = sessionStorage.getItem("sessionData");
