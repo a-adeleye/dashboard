@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import { isLoggedIn } from "../auth/Login";
 import logout from "../auth/Logout";
 import fetchUserData from "../auth/UserData";
+import refreshToken from "../auth/Refresh";
 
 export default function Profile() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -34,11 +35,9 @@ export default function Profile() {
     const data = JSON.parse(sessionStorage.getItem("sessionData"));
     if (data) {
       const accessToken = data.accessToken;
-      console.log(accessToken);
       trackPromise(
         fetchUserData(accessToken).then((res) => {
           setUserData(res.data);
-          console.log(res.data);
         })
       );
     }
@@ -109,7 +108,7 @@ export default function Profile() {
       </div>
       <Link to="/dashboard">
         <button
-          type="submit"
+          onClick={refreshToken}
           className="group relative m-auto mt-4 flex w-full max-w-lg justify-center rounded-md border border-transparent bg-yellow-300 py-2 px-4 text-sm font-bold text-black hover:bg-yellow-500 focus:outline-none"
         >
           <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
