@@ -5,6 +5,7 @@ import FlickLogo from "./FlickLogo";
 import LoginForm from "./LoginForm";
 import auth from "../auth/auth";
 import Loading from "./Loading";
+import { Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const [formInput, setFormInput] = React.useState("");
@@ -22,7 +23,7 @@ export default function LoginPage() {
     formdata.append("email", `${formInput.email}`);
     formdata.append("password", `${formInput.password}`);
     trackPromise(
-      auth.login(formdata).then((res) => {
+      auth.login(formdata).then(() => {
         navigate('/dashboard')
       })
     );
@@ -51,6 +52,7 @@ export default function LoginPage() {
             handleSubmit={handleSubmit}
             formdata={formInput}
           ></LoginForm>
+          <Toaster />
         </div>
       </div>
     </>
