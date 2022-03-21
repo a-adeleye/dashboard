@@ -12,8 +12,9 @@ export default function EditProfile(props) {
     setNewName((prev) => (prev = e.target.value));
   }
 
-  function updateName() {
+  function validateName() {
     if (newName === "") {
+      toast.error("Name can not be blank")
       return;
     }
 
@@ -130,7 +131,7 @@ export default function EditProfile(props) {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-8 py-2 text-sm font-medium text-white hover:bg-green-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={updateName}
+                    onClick={validateName}
                   >
                     Save
                   </button>

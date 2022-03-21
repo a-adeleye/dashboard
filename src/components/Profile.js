@@ -25,8 +25,12 @@ export default function Profile() {
   React.useEffect(() => {
     trackPromise(
       auth.fetchUserData().then((res) => {
+        if (!res) {
+          const data = JSON.parse(sessionStorage.getItem("sessionData"));
+          setUserData(data.me);
+          return;
+        }
         setUserData(res);
-        console.log(res)
       })
     );
   }, []);
