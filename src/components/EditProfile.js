@@ -1,8 +1,62 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
+import toast from "react-hot-toast";
+import Loading from "./Loading";
+import { trackPromise } from "react-promise-tracker";
 
 export default function EditProfile(props) {
-  const { isOpen, openModal, closeModal, edit } = props;
+  const { isOpen, closeModal } = props;
+  const [newName, setNewName] = React.useState("");
+
+  function handleChange(e) {
+    setNewName((prev) => (prev = e.target.value));
+  }
+
+  function updateName() {
+    if (newName === "") {
+      return;
+    }
+
+    const sessionData = JSON.parse(sessionStorage.getItem("sessionData"));
+    const accessToken = sessionData.accessToken;
+
+    const fetchHeaders = new Headers();
+    fetchHeaders.append("App-Secret", "*(3%13@Uh@1");
+    fetchHeaders.append("Platform", "web");
+    fetchHeaders.append("Accept", "application/json");
+    fetchHeaders.append("Authorization", `Bearer ${accessToken}`);
+
+    fetchHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      name: `${newName}`,
+    });
+
+    const requestOptions = {
+      method: "PUT",
+      headers: fetchHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+console.log(accessToken);
+
+   trackPromise(fetch(
+      "https://phplaravel-718120-2386003.cloudwaysapps.com/api/v1/auth/update",
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          response.json();
+          closeModal();
+          toast.success("Name updated");
+          document.location.reload();
+          return response;
+        }
+        console.log("ko work")
+      }) 
+      .catch((error) => console.log("error", error)));
+  }
 
   return (
     <>
@@ -40,31 +94,33 @@ export default function EditProfile(props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="my-8 inline-block h-48 w-5/12 min-w-max max-w-md transform overflow-hidden rounded-2xl border-2 border-black bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <div className="my-8 inline-block h-60 w-5/12 min-w-max max-w-md transform overflow-hidden rounded-2xl border-2 border-black bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
                   className="text-md font-bold leading-6 text-gray-900"
                 >
-                  Update your {edit}
+                  Update your name
                 </Dialog.Title>
-                <p className="text-xs text-gray-500 mt-2 mb-3">
-                  Change the {edit} you want associated with your account
+                <p className="mt-2 mb-3 text-xs text-gray-500">
+                  Change the name you want associated with your account
                 </p>
                 <div>
-                  <label htmlFor="email-address" className="sr-only">
+                  <label htmlFor="email" className="sr-only">
                     Email address
                   </label>
                   <input
-                    id="email-address"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="name"
+                    name="name"
+                    type="text"
                     required
                     className="relative mb-4 mt-2 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                    placeholder={"Enter new " + edit}
+                    placeholder="Enter new name"
+                    onChange={handleChange}
                   />
                 </div>
-
+                <div className="flex justify-center items-center">
+                <Loading />
+                </div>
                 <div className="mt-4 flex justify-between">
                   <button
                     type="button"
@@ -76,7 +132,7 @@ export default function EditProfile(props) {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-8 py-2 text-sm font-medium text-white hover:bg-green-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={closeModal}
+                    onClick={updateName}
                   >
                     Save
                   </button>

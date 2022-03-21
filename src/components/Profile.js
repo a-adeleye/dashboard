@@ -3,31 +3,24 @@ import ProfileName from "./ProfileName";
 import EditProfile from "./EditProfile";
 import React from "react";
 import { Link } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { trackPromise } from "react-promise-tracker";
 import Loading from "./Loading";
-import { isLoggedIn } from "../auth/Login";
 import logout from "../auth/Logout";
 import fetchUserData from "../auth/UserData";
 import refreshToken from "../auth/Refresh";
+import EditButton from "./EditButton";
 
 export default function Profile() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [edit, setEdit] = React.useState();
   const [userData, setUserData] = React.useState();
 
   function closeModal() {
     setIsOpen(false);
-    toast.success(capitalizeFirstLetter(edit) + " updated");
   }
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function openModal(e) {
-    const id = e.target.id;
-    setEdit((prev) => (prev = id));
+   function openModal() {
+    refreshToken();
     setIsOpen(true);
   }
 
@@ -65,13 +58,7 @@ export default function Profile() {
               {!userData ? <Loading /> : userData.name}
             </dd>
             <dd className="mt-1 flex justify-end text-sm text-gray-500">
-              <div
-                className="cursor-pointer rounded border border-gray-400 px-4 py-1 text-black hover:bg-gray-200 active:scale-95"
-                id="password"
-                onClick={openModal}
-              >
-                Edit
-              </div>
+            <EditButton id="name" openModal={openModal}/>
             </dd>
           </div>
           <div className="grid grid-cols-4 gap-4 bg-white px-2 py-3 sm:px-4">
@@ -80,13 +67,6 @@ export default function Profile() {
               {!userData ? <Loading /> : userData.email}
             </dd>
             <dd className="mt-1 flex justify-end text-sm text-gray-500">
-              <div
-                className="cursor-pointer rounded border border-gray-400 px-4 py-1 text-black hover:bg-gray-200 active:scale-95"
-                id="password"
-                onClick={openModal}
-              >
-                Edit
-              </div>
             </dd>
           </div>
           <div className="grid grid-cols-4 gap-4 bg-gray-50 px-2 py-3 sm:px-4">
@@ -95,13 +75,6 @@ export default function Profile() {
               {!userData ? <Loading /> : "**********"}
             </dd>
             <dd className="mt-1 flex justify-end text-sm text-gray-500 sm:mt-0">
-              <div
-                className="cursor-pointer rounded border border-gray-400 px-4 py-1 text-black hover:bg-gray-200 active:scale-95"
-                id="password"
-                onClick={openModal}
-              >
-                Edit
-              </div>
             </dd>
           </div>
         </dl>
@@ -116,7 +89,6 @@ export default function Profile() {
         </button>
       </Link>
       <EditProfile
-        edit={edit}
         isOpen={isOpen}
         openModal={openModal}
         closeModal={closeModal}
