@@ -51,7 +51,6 @@ export default function EditProfile(props) {
           const sessionData = JSON.parse(sessionStorage.getItem('sessionData'));
           sessionData["me"].name = newName;
           sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
-          console.log("session updated");
         }
       }).then(() => document.location.reload())
       .catch((error) => console.log("error", error)));
