@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import LoginPage from "./components/LoginPage";
+import LoginPage from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import EditProfile from "./components/EditProfile";
 import NotFound from "./404";
 
 export default function RouteSwitch() {
