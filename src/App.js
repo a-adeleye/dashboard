@@ -1,8 +1,6 @@
 import React from "react";
 import {useNavigate, Outlet } from "react-router-dom";
 import { isLoggedIn } from "./auth/Login";
-import userData from "./auth/UserData";
-import refreshToken from "./auth/Refresh";
 
 function App() {
 
