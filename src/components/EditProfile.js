@@ -18,7 +18,7 @@ export default function EditProfile(props) {
     }
 
     const sessionData = JSON.parse(sessionStorage.getItem("sessionData"));
-    const accessToken = sessionData.accessToken;
+    const accessToken = sessionData.access_token;
 
     const fetchHeaders = new Headers();
     fetchHeaders.append("App-Secret", "*(3%13@Uh@1");
@@ -39,8 +39,6 @@ export default function EditProfile(props) {
       redirect: "follow",
     };
 
-console.log(accessToken);
-
    trackPromise(fetch(
       "https://phplaravel-718120-2386003.cloudwaysapps.com/api/v1/auth/update",
       requestOptions
@@ -50,7 +48,7 @@ console.log(accessToken);
           closeModal();
           toast.success("Name updated");
           const sessionData = JSON.parse(sessionStorage.getItem('sessionData'));
-          sessionData["profileData"].name = newName;
+          sessionData["me"].name = newName;
           sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
           console.log("session updated");
         }

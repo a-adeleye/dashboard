@@ -96,8 +96,7 @@ export default (function auth() {
         console.log(data.data);
         return data.data;
       }
-
-      return Promise.reject(response);
+      
     } catch (error) {
       console.log("error", error);
     }
