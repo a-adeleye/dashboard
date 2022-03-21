@@ -1,5 +1,5 @@
 # Dashboard App
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)+ [Tailwind CSS](tailwindcss.com/) and hosted on [Vercel](https://vercel.com/)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) + [Tailwind CSS](tailwindcss.com/) and hosted on [Vercel](https://vercel.com/).
 
 ## Available Scripts
 
