@@ -1,12 +1,10 @@
-import { Navigate } from "react-router-dom";
+import { trackPromise } from "react-promise-tracker";
 
 export default async function logout() {
+  
   const sessionData = JSON.parse(sessionStorage.getItem("sessionData"));
   const accessToken = sessionData.accessToken;
   const refreshToken = sessionData.refreshToken;
-
-  console.log(accessToken);
-  console.log(refreshToken);
 
   const fetchHeaders = new Headers();
   fetchHeaders.append("App-Secret", "*(3%13@Uh@1");

@@ -2,8 +2,10 @@ import Avatar from "./Avatar";
 import { Link} from "react-router-dom";
 import ProfileName from "./ProfileName";
 import React from "react";
+import refreshToken from "../auth/Refresh";
 
 export default function Dashboard() {
+
   function getSessionData() {
     let data = sessionStorage.getItem("sessionData");
     console.log(JSON.parse(data));

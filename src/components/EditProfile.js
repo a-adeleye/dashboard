@@ -47,14 +47,14 @@ console.log(accessToken);
     )
       .then((response) => {
         if (response.ok) {
-          response.json();
           closeModal();
           toast.success("Name updated");
-          document.location.reload();
-          return response;
+          const sessionData = JSON.parse(sessionStorage.getItem('sessionData'));
+          sessionData["profileData"].name = newName;
+          sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
+          console.log("session updated");
         }
-        console.log("ko work")
-      }) 
+      }).then(() => document.location.reload())
       .catch((error) => console.log("error", error)));
   }
 
