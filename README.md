@@ -1,5 +1,5 @@
 # Dashboard App
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)+ [Tailwind CSS](tailwindcss.com/) and hosted on [Vercel](https://vercel.com/)
 
 ## Available Scripts
 
@@ -21,4 +21,4 @@ You may also see any lint errors in the console.
 
 <div align="center"><img src="./src/dashboard-screenshot.png" alt="app screenshot" width="1000" /></div>
 
-[Live App here](https://a-adeleye.github.io/dashboard/);
+[Live App here](https://dashboard-six-bay.vercel.app/)
