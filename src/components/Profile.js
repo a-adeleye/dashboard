@@ -48,7 +48,7 @@ export default function Profile() {
       </div>
       <div className="border-t border-gray-200">
         <dl>
-          <div className="grid grid-cols-4 gap-4 bg-gray-50 px-2 py-3 sm:px-4">
+          <div className="grid grid-cols-4 items-center gap-4 bg-gray-50 px-2 py-3 sm:px-4">
             <dt className="text-sm font-medium text-gray-500">Name</dt>
             <dd className="col-span-2 mt-1 text-sm text-gray-900">
               {!userData ? <Loading /> : userData.name}
@@ -57,14 +57,21 @@ export default function Profile() {
               <EditButton id="name" openModal={openModal} />
             </dd>
           </div>
-          <div className="grid grid-cols-4 gap-4 bg-white px-2 py-3 sm:px-4">
+          <div className="grid grid-cols-4 gap-4 items-center bg-white px-2 py-3 sm:px-4">
             <dt className="text-sm font-medium text-gray-500">Email</dt>
             <dd className="col-span-2 mt-1 text-sm text-gray-900">
               {!userData ? <Loading /> : userData.email}
             </dd>
             <dd className="mt-1 flex justify-end text-sm text-gray-500"></dd>
           </div>
-          <div className="grid grid-cols-4 gap-4 bg-gray-50 px-2 py-3 sm:px-4">
+          <div className="grid grid-cols-4 gap-4 items-center bg-gray-50 px-2 py-3 sm:px-4">
+            <dt className="text-sm font-medium text-gray-500">Phone</dt>
+            <dd className="col-span-2 mt-1 text-sm text-gray-900">
+              {!userData ? <Loading /> : userData.phone}
+            </dd>
+            <dd className="mt-1 flex justify-end text-sm text-gray-500"></dd>
+          </div>
+          <div className="grid grid-cols-4 gap-4 bg-white px-2 py-3 sm:px-4">
             <dt className="text-sm font-medium text-gray-500">Password</dt>
             <dd className="col-span-2 mt-1 text-sm text-gray-900">
               {!userData ? <Loading /> : "**********"}
